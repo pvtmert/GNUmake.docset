@@ -4,10 +4,10 @@ name: CI
 on:
   push:
     branches:
-    - $default-branch
+    - master
   pull_request:
     branches:
-    - $default-branch
+    - master
 
 jobs:
   build:
@@ -16,9 +16,9 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
     - name: Update package index
-      run:  apt update
+      run:  sudo apt update
     - name: Install packages
-      run:  apt install -y curl make sqlite3
+      run:  sudo apt install -y curl make sqlite3
     - name: Build with make
       run:  make -C Contents
     - name: Upload built directory
