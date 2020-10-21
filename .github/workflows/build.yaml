@@ -1,0 +1,28 @@
+
+name: CI
+
+on:
+  push:
+    branches:
+    - $default-branch
+  pull_request:
+    branches:
+    - $default-branch
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+    - name: Update package index
+      run:  apt update
+    - name: Install packages
+      run:  apt install -y curl make sqlite3
+    - name: Build with make
+      run:  make -C Contents
+    - name: Upload built directory
+      uses: actions/upload-artifact@v2
+      with:
+        name: GNUmake.docset
+        path: ./
