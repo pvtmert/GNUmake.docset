@@ -11,15 +11,15 @@ index: $(INDEX)
 	mkdir -p "$@"
 
 update: ./Resources/Documents
-	curl --compressed -#4Lf "$(REMOTE)" | tar -xzC "$@"
-	find "$@" -iname "*.html" -exec \
+	curl --compressed -#4Lf "$(REMOTE)" | tar -xzC "$<"
+	find "$<" -iname "*.html" -exec \
 		sed -i.old 's:/software/gnulib/manual.css:_manual.css:g' {} +
-	curl -#4Lfo "$@/_manual.css" "http://www.gnu.org/software/gnulib/manual.css"
-	sed -i .old 's:/style.css:_style.css:g' "$@/_manual.css"
-	curl -#4Lfo "$@/_style.css" "http://www.gnu.org/style.css"
-	sed -i .old 's:/reset.css:_reset.css:g' "$@/_style.css"
-	curl -#4Lfo "$@/_reset.css" "http://www.gnu.org/reset.css"
-	find "$@" -iname "*.old" -delete
+	curl -#4Lfo "$</_manual.css" "http://www.gnu.org/software/gnulib/manual.css"
+	sed -i .old 's:/style.css:_style.css:g' "$</_manual.css"
+	curl -#4Lfo "$</_style.css" "http://www.gnu.org/style.css"
+	sed -i .old 's:/reset.css:_reset.css:g' "$</_style.css"
+	curl -#4Lfo "$</_reset.css" "http://www.gnu.org/reset.css"
+	find "$<" -iname "*.old" -delete
 
 icons: ../icon.png
 
